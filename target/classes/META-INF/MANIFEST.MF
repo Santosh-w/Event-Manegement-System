@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: santosh wathore
+Build-Jdk: 11.0.14
+Implementation-Title: loginAuth
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: pocisimportant
+Implementation-URL: https://spring.io/projects/spring-boot/loginAuth
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Event Registration</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<style>
+	body{
+		background-color: rgb(255, 255, 255);
+		
+	}
+	/* Style the list */
+ul.breadcrumb {
+  
+  list-style: none;
+ 
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 14px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+ 
+  color: rgb(255, 0, 149);
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+</style>
+
+<style>
+	    * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  font-family: 'segoe ui';
+}
+
+.nav {
+  height: 70px;
+  width: 100%;
+  background-color: rgb(255, 42, 95);
+  position: relative;
+}
+
+.nav > .nav-header {
+  display: inline;
+}
+
+.nav > .nav-header > .nav-title {
+  display: inline-block;
+  font-size: 22px;
+  color: #fff;
+  padding: 10px 10px 10px 10px;
+}
+
+.nav > .nav-btn {
+  display: none;
+}
+
+.nav > .nav-links {
+  display: inline;
+  float: right;
+  font-size: 18px;
+}
+
+.nav > .nav-links > a {
+  display: inline-block;
+  padding: 13px 10px 13px 10px;
+  text-decoration: none;
+  color: #efefef;
+}
+
+.nav > .nav-links > a:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.nav > #nav-check {
+  display: none;
+}
+
+@media (max-width:600px) {
+  .nav > .nav-btn {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+  .nav > .nav-btn > label {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 13px;
+  }
+  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .nav > .nav-btn > label > span {
+    display: block;
+    width: 25px;
+    height: 10px;
+    border-top: 2px solid #eee;
+  }
+  .nav > .nav-links {
+    position: absolute;
+    display: block;
+    width: 100%;
+    background-color: rgb(252, 5, 128);
+    height: 0px;
+    transition: all 0.3s ease-in;
+    overflow-y: hidden;
+    top: 50px;
+    left: 0px;
+  }
+  .nav > .nav-links > a {
+    display: block;
+    width: 100%;
+  }
+  .nav > #nav-check:not(:checked) ~ .nav-links {
+    height: 0px;
+  }
+  .nav > #nav-check:checked ~ .nav-links {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+	<div class="nav" style="display: inline-block;">
+    
+		<div class="nav-header" >
+		  <div class="nav-title" style="margin-left: 10px; font-size: x-large;">
+			EVENTO
+		  </div>
+		</div>
+		<div class="nav-btn">
+		  <label for="nav-check">
+			<span></span>
+			<span></span>
+			<span></span>
+		  </label>
+		</div>
+		
+		<div class="nav-links"  style=" display: inline-block; margin-right: 20px;font-size: medium;">
+		  <a th:href="@{/}" >Home</a>
+		  
+		  
+		</div>
+		
+		
+	  </div>
+	
+	<!-- Create HTML registration form -->
+	<div class="container">
+
+		<h2 style="color: rgb(255, 0, 98);text-align: center;">List your Event</h2>
+		
+		<hr>
+		<div class="row" >
+			<div class="col-md-6 col-md-offset-3">
+
+				<!-- success message -->
+				<div th:if="${param.registered}">
+					<div class="alert alert-info">You've registered your event with us.</div>
+					<a th:href="@{/}" style="float: right;">Home</a>
+				</div>
+
+				
+
+				<form th:action="@{/events}" method="post" th:object="${event}" id="eventForm" style="color: rgb(255, 109, 194);">
+					<div class="form-group">
+						<label class="control-label" for="eventName"> Event Name </label>
+						<input id="eventName" class="form-control" th:field="*{eventName}" required
+							autofocus="autofocus" style="background-color: rgb(255, 255, 255);" />
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="description"> Description </label>
+						<input id="description" class="form-control" th:field="*{description}" required
+							autofocus="autofocus" style="background-color: rgb(255, 255, 255);"/>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="pricing"> Pricing </label>
+						<input id="pricing" class="form-control" th:field="*{pricing}" required autofocus="autofocus"style="background-color: rgb(255, 255, 255);" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="organizerName"> Organizer Name </label> 
+						<!-- <input id="organizerName" class="form-control" th:field="*{organizerName}"  required
+							autofocus="autofocus" /> -->
+							<input type="text" id="organizerName" class="form-control" th:value="${#authentication.getName()}" name="organizerName" readonly style="background-color: rgb(238, 182, 226);" ><br><br>
+
+					</div>
+
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-success" style="background-color: coral;">Register</button>
+						
+					</div>
+				</form>
+
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Registration and Login App</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<!-- create navigation bar ( header) -->
+	<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Event Management System</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/signout}">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav> -->
+	<nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e3f2fd;position:fixed; width: 100%;">
+		<div style="display:inline-block; padding-left: 10px;">
+			<img th:src="@{/images/logo.png}" width="50" height="50" class="d-inline" alt="Logo"  style="float: left;">
+		</div>
+		
+		<div style="display: inline-block;">
+			<a class="navbar-brand d-inline" href="#" style="font-size: x-large; font-family: cursive;font-weight: bolder;">Eventor</a>
+		</div>
+		
+
+		<div id="navbar" class="collapse navbar-collapse" style="float: right">
+			<ul class="nav navbar-nav">
+				<li sec:authorize="isAuthenticated()" style="margin-right: 50px;"><a th:href="@{/eventList}" style="font-weight: bold;">View Event</a></li>
+				<li sec:authorize="hasRole('ORGANIZER')" style="margin-right: 50px;"><a th:href="@{/events}" style="font-weight: bold;">Register Event</a></li>
+				<li sec:authorize="hasRole('ADMIN')" style="margin-right: 50px;"><a th:href="@{/organizerList}" style="font-weight: bold;">Organizers</a></li>
+				<li sec:authorize="isAuthenticated()" style="margin-right: 50px;"><a th:href="@{/homepage}" style="font-weight: bold;">Home</a></li>
+				<li sec:authorize="isAuthenticated()" style="margin-right: 50px;"><a th:href="@{/aboutus}" style="font-weight: bold;">About us</a></li>
+				<li sec:authorize="isAuthenticated()" style="margin-right: 50px;"><a th:href="@{/services}" style="font-weight: bold;">Services</a></li>
+				<li sec:authorize="isAuthenticated()" style="margin-right: 50px;"><a th:href="@{/contactus}" style="font-weight: bold;">Contact us</a></li>
+				<li sec:authorize="isAuthenticated()" style="margin-right: 50px;"><a th:href="@{/signout}"  style="font-weight: bold;">Logout</a></li>
+				
+			</ul>
+		</div>
+	</nav>
+
+	<br>
+	<br>
+
+	<!-- <div class="container">
+		<h1>You have logged in to your main page successfully</h1>
+		Welcome <span sec:authentication="principal.username"> User</span>
+		Welcome <div sec:authorize="hasRole('ADMIN')"> ONLY ADMIN CAN SEE THIS</span>
+
+			<div sec:authorize="hasRole('ADMIN')">
+				<a href="/demo"> Click me</a>
+			</div>
+		
+		
+
+
+
+
+	</div> -->
+	<div class="row" >
+
+		<div class="col-12">
+			<h1 style="position: absolute;top: 30%;left: 50%;transform: translate(-50%, -50%);color: darkred;text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff; font-weight: bolder; font-family:Helvetica">Life is an event. Make it memorable.</h1>
+			<img th:src="@{/images/services.jpg}" alt="Banner" style="overflow:hidden; width: 100%; ">
+		</div>
+		<br>
+		<br>
+		<hr>
+		<div class="col-12">
+			<h1 style="text-align: center; display: inline-block; margin-left: 25%;">A Complete Event Management Company</h1>
+			<a href="#">Read more</a>
+		</div>
+	
+
+	</div>
+	<br>
+	<br>
+	<br>
+	<hr>
+	<div class="row">
+		<div class="col-12">
+			
+		</div>
+	</div>
+</body>
+
+</html>

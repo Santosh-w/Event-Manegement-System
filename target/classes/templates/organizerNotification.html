@@ -1,0 +1,248 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>List of booked events</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<style>
+	a.button {
+    display: block;
+    width: 115px;
+    height: 25px;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}
+body{
+	background-color: rgb(255, 255, 255);
+}
+
+/* Style the list */
+ul.breadcrumb {
+  
+  list-style: none;
+ 
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 14px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 2px;
+  color: rgb(255, 0, 149);
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+</style>
+<style>
+	    * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  font-family: 'segoe ui';
+}
+
+.nav {
+  height: 70px;
+  width: 100%;
+  background-color: rgb(255, 42, 95);
+  position: relative;
+}
+
+.nav > .nav-header {
+  display: inline;
+}
+
+.nav > .nav-header > .nav-title {
+  display: inline-block;
+  font-size: 22px;
+  color: #fff;
+  padding: 10px 10px 10px 10px;
+}
+
+.nav > .nav-btn {
+  display: none;
+}
+
+.nav > .nav-links {
+  display: inline;
+  float: right;
+  font-size: 18px;
+}
+
+.nav > .nav-links > a {
+  display: inline-block;
+  padding: 13px 10px 13px 10px;
+  text-decoration: none;
+  color: #efefef;
+}
+
+.nav > .nav-links > a:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.nav > #nav-check {
+  display: none;
+}
+
+@media (max-width:600px) {
+  .nav > .nav-btn {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+  .nav > .nav-btn > label {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 13px;
+  }
+  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .nav > .nav-btn > label > span {
+    display: block;
+    width: 25px;
+    height: 10px;
+    border-top: 2px solid #eee;
+  }
+  .nav > .nav-links {
+    position: absolute;
+    display: block;
+    width: 100%;
+    background-color: rgb(252, 5, 128);
+    height: 0px;
+    transition: all 0.3s ease-in;
+    overflow-y: hidden;
+    top: 50px;
+    left: 0px;
+  }
+  .nav > .nav-links > a {
+    display: block;
+    width: 100%;
+  }
+  .nav > #nav-check:not(:checked) ~ .nav-links {
+    height: 0px;
+  }
+  .nav > #nav-check:checked ~ .nav-links {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+  }
+}
+</style>
+
+</head>
+
+<body>
+	
+	<div class="nav" style="display: inline-block;">
+    
+		<div class="nav-header" >
+		  <div class="nav-title" style="margin-left: 10px; font-size: x-large;">
+			EVENTO
+		  </div>
+		</div>
+		<div class="nav-btn">
+		  <label for="nav-check">
+			<span></span>
+			<span></span>
+			<span></span>
+		  </label>
+		</div>
+		
+		<div class="nav-links"  style=" display: inline-block; margin-right: 20px;font-size: medium;">
+		  <a th:href="@{/}" >Home</a>
+		  
+		  
+		</div>
+		
+		
+	  </div>
+	
+	<div class="container alert alert-light" > <h2 style="color: rgb(255, 35, 108);text-align: center;"> New Event Bookings</h2> 
+		<!-- <a th:href="@{/}" style="float: left;">Home</a><label for="space">spaace</label><a th:href="@{/organizerNotification}" style="float: left;">Notifications</a> -->
+		
+		<br>
+		<input id="search" type="text" class="form-control"  placeholder="Search for Events" style="background-color: rgb(255, 255, 255);">
+		<br>
+		<div th:if="${param.registered}">
+			<div class="alert alert-info">You've Booked the event</div>
+			
+		</div>
+		<table class="table">
+		  <thead style="color: rgb(255, 0, 149);">
+			<tr>
+				<th>Client Name</th>
+				<th>Organizer Name</th>
+				<th>Event Name</th>
+				<th>Action</th>
+				<!-- <th>Event Description</th>
+				<th>Organizer Name</th>
+				<th>Base Price</th>
+				<th>Bookings</th> -->
+
+			</tr>
+		  </thead>
+		  <tbody id="table">
+			<tr th:each="booking: ${bookings}" style="color: rgb(0, 101, 233);">
+
+				
+				<td th:text="${booking.clientName}"/>
+				<!-- <td th:text="${booking.eventName"/> -->
+				<td th:text="${booking.organizerName}" />
+				<td th:text="${booking.eventName}" />
+				<td><a th:href="@{'/acceptEvent/params'+'?'+'dead_param='+'dummuy'+'&'+'organizer_name='+${booking.organizerName}+'&'+'event_name='+${booking.eventName}+'&'+'client_name='+${booking.clientName}}" class="btn btn-info" style="background-color: #fc7b54; color: white;">Accept</a></td>
+				
+				<!-- <td th:text="${event.description}" />
+				<td th:text="${event.organizerName}" />
+				<td th:text="${event.pricing}" /> -->
+				<!-- <td><a th:href="@{'/'+${event.organizerName}}" class="btn btn-info">Book</a></td> -->
+				<!-- <td><a th:href="@{'/bookEvent/params'+'?'+'dead_param='+'dummuy'+'&'+'organizer_name='+${event.organizerName}+'&'+'event_name='+${event.eventName}+'&'+'client_name='+${#authentication.getName()}}" class="btn btn-info">Book</a></td> -->
+				
+				
+			</tr>
+			
+		  </tbody>
+		</table>
+
+</body>
+
+
+<script>
+	$("#search").on("keyup", function() {
+  var value = $(this).val().toLowerCase();
+  $("#table tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+});
+</script>
+</html>

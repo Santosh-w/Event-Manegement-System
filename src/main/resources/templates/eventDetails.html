@@ -1,0 +1,656 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Event Details</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+*{
+   
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+body{
+    line-height: 1.5;
+	
+  	margin: 10px;
+    margin-left: 10%;
+    background-color: rgb(255, 255, 255);
+}
+.card{
+    background-color: rgb(255, 255, 255);
+    border: none;
+}
+.card-wrapper{
+    max-width: 1100px;
+    margin: 1px;
+}
+img{
+    width: 100%;
+    display: block;
+}
+.img-display{
+    overflow: hidden;
+}
+.img-showcase{
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.img-showcase img{
+    min-width: 100%;
+}
+.img-select{
+    display: flex;
+}
+.img-item{
+    margin: 0.3rem;
+}
+.img-item:nth-child(1),
+.img-item:nth-child(2),
+.img-item:nth-child(3){
+    margin-right: 0;
+}
+.img-item:hover{
+    opacity: 0.8;
+}
+.event-content{
+    padding: 2rem 1rem;
+}
+.event-title{
+    font-size: 3rem;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: relative;
+    color: #12263a;
+    margin: 1rem 0;
+}
+.event-title::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 80px;
+    background: #12263a;
+}
+.event-link{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+   
+    color: #fff;
+    padding: 0 0.3rem;
+    transition: all 0.5s ease;
+}
+.event-link:hover{
+    opacity: 0.9;
+}
+.event-rating{
+    color: #ffc107;
+}
+.event-rating span{
+    font-weight: 600;
+    color: #252525;
+}
+.event-price{
+    margin: 1rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+.event-price span{
+    font-weight: 400;
+}
+.last-price span{
+    color: #f64749;
+    text-decoration: line-through;
+}
+.new-price span{
+    color: #256eff;
+}
+.event-detail h2{
+    text-transform: capitalize;
+    color: #12263a;
+    padding-bottom: 0.6rem;
+}
+.event-detail p{
+    font-size: 0.9rem;
+    padding: 0.3rem;
+    opacity: 0.8;
+}
+.event-detail ul{
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+.event-detail ul li{
+    margin: 0;
+    list-style: none;
+    background: url(https://fadzrinmadu.github.io/hosted-assets/event-detail-page-design-with-image-slider-html-css-and-javascript/checked.png) left center no-repeat;
+    background-size: 18px;
+    padding-left: 1.7rem;
+    margin: 0.4rem 0;
+    font-weight: 600;
+    opacity: 0.9;
+}
+.event-detail ul li span{
+    font-weight: 400;
+}
+.purchase-info{
+    margin: 1.5rem 0;
+}
+.purchase-info input,
+.purchase-info .btn{
+    border: 1.5px solid #ddd;
+    border-radius: 25px;
+    text-align: center;
+    padding: 0.45rem 0.8rem;
+    outline: 0;
+    margin-right: 0.2rem;
+    margin-bottom: 1rem;
+}
+.purchase-info input{
+    width: 60px;
+}
+.purchase-info .btn{
+    cursor: pointer;
+    color: #fff;
+}
+.purchase-info .btn:first-of-type{
+    background: #256eff;
+}
+.purchase-info .btn:last-of-type{
+    background: #f64749;
+}
+.purchase-info .btn:hover{
+    opacity: 0.9;
+}
+.social-links{
+    display: flex;
+    align-items: center;
+}
+.social-links a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #000;
+    border: 1px solid #000;
+    margin: 0 0.2rem;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.5s ease;
+}
+.social-links a:hover{
+    background: #000;
+    border-color: transparent;
+    color: #fff;
+}
+
+@media screen and (min-width: 992px){
+    .card{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.5rem;
+    }
+    .card-wrapper{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .event-imgs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .event-content{
+        padding-top: 0;
+    }
+}
+</style>
+<style>
+    ul.breadcrumb {
+  
+  list-style: none;
+ 
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 14px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 2px;
+  color: rgb(255, 0, 149);
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+
+.centered {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: xx-large;
+  color:white ;
+  font-weight: bolder;
+  text-align: center;
+}
+
+/* component */
+
+.star-rating {
+  border:solid 1px #ccc;
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:1.5em;
+  justify-content:space-around;
+  padding:0 .2em;
+  text-align:center;
+  width:5em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
+
+/* explanation */
+
+article {
+  background-color:#ffe;
+  box-shadow:0 0 1em 1px rgba(0,0,0,.25);
+  color:#006;
+  font-family:cursive;
+  font-style:italic;
+  margin:4em;
+  max-width:30em;
+  padding:2em;
+}
+</style>
+
+<style>
+  
+.review {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.review:not(:checked) > input {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.review:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.review:not(:checked) > label:before {
+    content: '★ ';
+}
+.review > input:checked ~ label {
+    color: #ff0077;    
+}
+.review:not(:checked) > label:hover,
+.review:not(:checked) > label:hover ~ label {
+    color: #ff0077;  
+}
+.review > input:checked + label:hover,
+.review > input:checked + label:hover ~ label,
+.review > input:checked ~ label:hover,
+.review > input:checked ~ label:hover ~ label,
+.review > label:hover ~ input:checked ~ label {
+    color: #ff0077;
+}
+
+/* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
+</style>
+
+<style>
+  #bookBtn {
+    display: block;
+    width: 115px;
+    height: 30px;
+    background: #ff006a;
+    padding: 1px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}
+</style>
+
+<style>
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  font-family: 'segoe ui';
+}
+
+.nav {
+  height: 70px;
+  width: 100%;
+  background-color: rgb(255, 42, 95);
+  position: relative;
+}
+
+.nav > .nav-header {
+  display: inline;
+}
+
+.nav > .nav-header > .nav-title {
+  display: inline-block;
+  font-size: 22px;
+  color: #fff;
+  padding: 10px 10px 10px 10px;
+}
+
+.nav > .nav-btn {
+  display: none;
+}
+
+.nav > .nav-links {
+  display: inline;
+  float: right;
+  font-size: 18px;
+}
+
+.nav > .nav-links > a {
+  display: inline-block;
+  padding: 13px 10px 13px 10px;
+  text-decoration: none;
+  color: #efefef;
+}
+
+.nav > .nav-links > a:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.nav > #nav-check {
+  display: none;
+}
+
+@media (max-width:600px) {
+  .nav > .nav-btn {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+  .nav > .nav-btn > label {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 13px;
+  }
+  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .nav > .nav-btn > label > span {
+    display: block;
+    width: 25px;
+    height: 10px;
+    border-top: 2px solid #eee;
+  }
+  .nav > .nav-links {
+    position: absolute;
+    display: block;
+    width: 100%;
+    background-color: rgb(252, 5, 128);
+    height: 0px;
+    transition: all 0.3s ease-in;
+    overflow-y: hidden;
+    top: 50px;
+    left: 0px;
+  }
+  .nav > .nav-links > a {
+    display: block;
+    width: 100%;
+  }
+  .nav > #nav-check:not(:checked) ~ .nav-links {
+    height: 0px;
+  }
+  .nav > #nav-check:checked ~ .nav-links {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+  <div class="nav" style="display: inline-block;">
+    
+    <div class="nav-header" >
+      <div class="nav-title" style="margin-left: 10px; font-size: x-large;">
+        EVENTO
+      </div>
+    </div>
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+    
+    <div class="nav-links"  style=" display: inline-block; margin-right: 20px;font-size: medium;">
+      <a th:href="@{/}" >Home</a>
+      <a th:href="@{/eventList}">Events</a>
+      
+    </div>
+    
+    
+  </div>
+	
+	<div class = "card-wrapper" style="margin-top: 30%; margin-left: 10%; ">
+		<div class = "card" style="padding: 25px;">
+		  <!-- card left -->
+		  <div class = "event-imgs">
+			<div class = "img-display">
+			  <div class = "img-showcase">
+        
+				<img th:src = "@{'images/'+${price}+'.jpg'}" alt = "eventImage" id="mainImg">
+				
+			  </div>
+			</div>
+			
+		  </div>
+		  <!-- card right -->
+		  <div class = "event-content" style="position: relative;">
+			<h2 class = "event-title" id="title" style="color: hsl(340, 100%, 50%);" >Wedding Planning</h2>
+			
+			
+	  
+			<div class = "event-price">
+			  <p class = "new-price" style="color: hsl(340, 100%, 74%);">Basic Package: Rs.<strong id="pricing" style="color: #ff0062;">Rs.125000</strong>/-</p>
+			</div>
+	  
+			<div class = "product-detail">
+			  <h2 style="color: #0e0006;">About this event: </h2>
+			  <p id="description" style="color: #000000;">About our Company As a Best Wedding Planner in India and event coordination company in Udaipur Rajasthan Vings events is one of the best wedding planner and event company in India. Our talented team work with couples and their families to arrange this Special moments of weddings.Best Wedding Planner in Indiaevent company.</p>
+			  
+			  <ul style="color: #000000;">
+				<li><span style="font-weight: bolder;">Sanitization: </span> <span style="font-style: italic;"> Done Daily</span></li>
+				<li><span style="font-weight: bolder;">Available: </span><span style="font-style: italic;"> Available</span></li>
+				<li><span style="font-weight: bolder;">Photography: </span><span style="font-style: italic;"> Available</span></li>
+				<li><span style="font-weight: bolder;">Catering: </span><span style="font-style: italic;"> Excluded from basic package</span></li>
+				<li><span style="font-weight: bolder;">Videography: </span><span style="font-style: italic;"> Not Available</span></li>
+			  </ul>
+
+
+			</div>
+	  
+			<div class = "purchase-info">
+			  
+			  <a th:href="@{'/bookEvent/params'+'?'+'dead_param='+'dummuy'+'&'+'organizer_name='+${eventOrg}}" id="bookBtn">Book</a>
+			</div>
+      <span style="color: rgb(255, 38, 110);" >Submit your Review</span>
+      <form th:action="@{/rating/params}" method="GET" id="ratingForm">
+        <div class="review" style="display: block;">
+         
+          <input type="text" id="deadParam" th:value=${eventUser} name="dead_params" readonly style="background-color: rgb(238, 182, 226); display: none;" >
+          <input type="radio" id="star5" name="review" value="5" />
+          <label for="star5" title="text">5 stars</label>
+          <input type="radio" id="star4" name="review" value="4" />
+          <label for="star4" title="text">4 stars</label>
+          <input type="radio" id="star3" name="review" value="3" />
+          <label for="star3" title="text">3 stars</label>
+          <input type="radio" id="star2" name="review" value="2" />
+          <label for="star2" title="text">2 stars</label>
+          <input type="radio" id="star1" name="review" value="1" />
+          <label for="star1" title="text">1 star</label> 
+         
+
+          <input type="text" id="reviewer" th:value=${eventUser} name="reviewer" readonly style="background-color: rgb(238, 182, 226); display: none;" >
+          <input type="text" id="reviewee" th:value=${eventUser} name="reviewee" readonly style="background-color: rgb(238, 182, 226); display: none;" >
+          
+        </div>
+        
+        <div class = "purchase-info">
+			  
+          <button type = "submit" class = "btn" style="background-color: #ff2f7f;">
+          Submit <i class = "fas fa-shopping-cart"></i>
+          </button>
+          
+        </div>
+    
+        <strong style="color: #ff79b1;">Your rating is valuable to us!</strong>
+        <!-- <input type="submit" value="submit" style="border-radius: 20px;padding: 5px;background-color: #0275d8; border-color: #ffffff;"> -->
+      </form>
+		  </div>
+      <div class="pricing">
+        <hr>
+        <h5 style="font-weight: bolder;color: #f778ad; text-decoration: underline;">Pricing: </h5>
+        <br>
+        <p style="font-size: small;color: #f778ad;">MIN. PER PLATE (VEG)</p>
+        <strong style="font-size: small;color: #f778ad;">₹ 3,200</strong>
+        <br>
+        <br>
+        <p style="font-size: small;color: #f778ad;">MIN. PER PLATE (NON-VEG)</p>
+        <strong style="font-size: small;color: #f778ad;">₹ 3,600</strong>
+        <br>
+        <br>
+        <p style="font-size: small;color: #f778ad;">PAYMENT POLICY</p>
+        <strong style="font-size: small;color: #f778ad;">100% ADVANCE PAYMENT</strong>
+        <hr>
+        <h5 style="font-weight: bolder;color: #f778ad;text-decoration: underline;">About: </h5>
+        <br>
+        <p style="font-size: small;color: #f778ad;">DJ POLICY</p>
+        <strong style="font-size: small;color: #f778ad;">DJ ALLOWED</strong>
+        <br>
+        <br>
+        <p style="font-size: small;color: #f778ad;">ALCHOL POLICY</p>
+        <strong style="font-size: small;color: #f778ad;">NOT ALLOWED</strong>
+        <br>
+        <br>
+        <p style="font-size: small;color: #f778ad;">PARKING SPACE</p>
+        <strong style="font-size: small;color: #f778ad;">PARKING SPACE FOR 50 CARS</strong>
+      </div>
+      
+		</div>
+    
+	  </div>
+
+</body>
+
+
+<script>
+	const imgs = document.querySelectorAll('.img-select a');
+const imgBtns = [...imgs];
+let imgId = 1;
+
+imgBtns.forEach((imgItem) => {
+    imgItem.addEventListener('click', (event) => {
+        event.preventDefault();
+        imgId = imgItem.dataset.id;
+        slideImage();
+    });
+});
+
+function slideImage(){
+    const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
+
+    document.querySelector('.img-showcase').style.transform = `translateX(${- (imgId - 1) * displayWidth}px)`;
+}
+
+window.addEventListener('resize', slideImage);
+
+const params = new URLSearchParams(document.location.search);
+const price = params.get("event_price");
+const eventName = params.get("event_name");
+const eventDesc = params.get("event_description");
+const eventOrg = params.get("event_organizer");
+const eventUser = params.get("event_user");
+console.log(eventOrg);
+console.log(eventName);
+document.getElementById('title').innerHTML=eventName;
+document.getElementById('pricing').innerHTML=price;
+document.getElementById('description').innerHTML=eventDesc;
+document.getElementById('description').innerHTML=eventDesc;
+document.getElementById('reviewer').value=eventUser;
+document.getElementById('reviewee').value=eventOrg;
+document.getElementById('deadParam').value="dummy";
+document.getElementById('mainImg').src="images/"+eventName+".jpg";
+document.getElementById('bookBtn').href="/bookEvent/params"+"?"+"dead_param="+"dummuy"+"&"+"organizer_name="+eventOrg+"&"+"event_name="+eventName+"&"+"client_name="+eventUser;
+
+var frm=document.getElementById('ratingForm');
+frm.action+="?reviewer="+eventUser+"&"+"reviewee="+eventOrg;
+var message = /*[[${eventOrg}]]*/ "";
+</script>
+</html>
